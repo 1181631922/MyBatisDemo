@@ -1,4 +1,4 @@
-package com.fanyafeng;
+package com.fanyafeng.test;
 
 import java.sql.*;
 
