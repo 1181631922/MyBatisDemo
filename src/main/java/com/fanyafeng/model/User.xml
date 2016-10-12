@@ -2,8 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--resultType 指定单条记录返回的类型-->
+
 <mapper namespace="com.fanyafeng.dao.IUserDao">
     <select id="selectUserById" parameterType="int" resultType="com.fanyafeng.model.User">
         select * from user where id = #{id}
     </select>
+
+    <!--'%${value}' 表示拼接sql串,只能使用value,有可能会引起sql注入的情况-->
+    <select id="queryUserByName" parameterType="String" resultType="com.fanyafeng.model.User">
+        SELECT * FROM user WHERE username LIKE #{name}
+    </select>
+
+    <!--INSERT INTO USER (id,username,sex,address) VALUE (null,"陈潇然","女","大学同学")-->
+    <!-- SELECT LAST_INSERT_ID() 得到刚插入数据库的记录的主键值,只适用于自增主键
+         keyProperty:将查询到主键值设置到相应的 parameterType 属性中
+         order 相对于执行的sql语句的顺序-->
+    <insert id="add" parameterType="com.fanyafeng.model.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        insert into user (id,username,birthday,sex,address) values (#{id},#{username},#{birthday},#{sex},#{address})
+    </insert>
+    <!--非自增的id-->
+    <!-- <selectKey keyProperty="id" order="BEFORE" resultType="String">
+            SELECT uuid();
+        </selectKey>
+        insert into user (id,username,birthday,sex,address) values (#{id},#{username},#{birthday},#{sex},#{address})
+    -->
+
+    <!--根据id进行删除-->
+    <delete id="del" parameterType="int">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+
+    <!--根据id更新数据库-->
+    <update id="alter" parameterType="com.fanyafeng.model.User">
+        UPDATE USER  SET username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} WHERE id = #{id}
+    </update>
 </mapper>
