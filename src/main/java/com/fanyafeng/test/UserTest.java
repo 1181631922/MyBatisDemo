@@ -1,10 +1,12 @@
 package com.fanyafeng.test;
 
+import com.fanyafeng.mapper.IUserMapper;
 import com.fanyafeng.model.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -45,15 +47,15 @@ public class UserTest {
 //            }
 
 //            插入操作
-            User user = new User();
+//            User user = new User();
 //            user.setId(100);
-            user.setBirthday(new Date());
-            user.setUsername("李宁");
-            user.setSex("女");
-            user.setAddress("家里蹲");
-            int isAdd = sqlSession.insert("com.fanyafeng.dao.IUserDao.add", user);
+//            user.setBirthday(new Date());
+//            user.setUsername("李宁");
+//            user.setSex("女");
+//            user.setAddress("家里蹲");
+//            int isAdd = sqlSession.insert("com.fanyafeng.dao.IUserDao.add", user);
 //            进行事物操作后一定要commit,不然不会生效
-            sqlSession.commit();//不要忘记
+//            sqlSession.commit();//不要忘记
 
 
 //            根据id进行删除,感觉在删除之前应该先进行查询,存在的话删除,不存在的话给相应的提示
@@ -68,6 +70,11 @@ public class UserTest {
 //            user.setAddress("更新后的信息");
 //            sqlSession.update("com.fanyafeng.dao.IUserDao.alter", user);
 //            sqlSession.commit();
+
+//            通过mapper映射
+//            IUserMapper iUserMapper = sqlSession.getMapper(IUserMapper.class);
+//            iUserMapper.selectUserById(1);
+//            System.out.println(iUserMapper.selectUserById(1).toString());
 
         } finally {
             sqlSession.close();
