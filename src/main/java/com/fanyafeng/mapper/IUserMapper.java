@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface IUserMapper {
 
+//    只能传一个参数,当需要多个参数时,可以采用pojo
 
     public List<User> queryUserByName(String name);
 

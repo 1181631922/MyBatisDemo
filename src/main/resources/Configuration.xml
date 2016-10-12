@@ -8,6 +8,7 @@
     <!--<typeAlias alias="User" type="com.fanyafeng.model.User"/>-->
     <!--</typeAliases>-->
 
+    <properties resource="db.properties"/>
 
     <!-- 和spring整合后 environments配置将废除-->
     <environments default="development">
@@ -16,10 +17,10 @@
             <transactionManager type="JDBC"/>
             <!-- 数据库连接池-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="mysql"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${name}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -27,7 +28,8 @@
     <mappers>
         <mapper resource="com/fanyafeng/model/User.xml"/>
 
-        <mapper resource="com/fanyafeng/mapper/IUserMapper.xml"/>
+        <package name="com.fanyafeng.mapper"/>
     </mappers>
+
 
 </configuration>
