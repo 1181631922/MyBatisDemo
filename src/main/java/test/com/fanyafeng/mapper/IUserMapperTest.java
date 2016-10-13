@@ -2,6 +2,8 @@ package test.com.fanyafeng.mapper;
 
 import com.fanyafeng.mapper.IUserMapper;
 import com.fanyafeng.model.User;
+import com.fanyafeng.model.UserCustom;
+import com.fanyafeng.model.UserQueryVo;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -38,5 +40,26 @@ public class IUserMapperTest {
         for (int i = 0; i < userList.size(); i++) {
             System.out.println(userList.get(i).toString());
         }
+    }
+
+    @Test
+    public void testFindUserByUserQuery() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        IUserMapper iUserMapper = sqlSession.getMapper(IUserMapper.class);
+        UserQueryVo userQueryVo = new UserQueryVo();
+        UserCustom userCustom = new UserCustom();
+        userCustom.setSex("男");
+        userCustom.setUsername("李宁");
+        userQueryVo.setUserCustom(userCustom);
+        List<UserCustom> userCustomList = iUserMapper.queryUserList(userQueryVo);
+        for (int i = 0; i < userCustomList.size(); i++) {
+            System.out.println(userCustomList.get(i).toString());
+        }
+
+        int count = iUserMapper.findUserCount(userQueryVo);
+        System.out.println("查询结果:" + count);
+
+        User user = iUserMapper.findUserByIdResultMap(1);
+        System.out.println(user.toString());
     }
 }

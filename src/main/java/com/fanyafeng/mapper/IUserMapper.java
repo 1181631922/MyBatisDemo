@@ -1,6 +1,8 @@
 package com.fanyafeng.mapper;
 
 import com.fanyafeng.model.User;
+import com.fanyafeng.model.UserCustom;
+import com.fanyafeng.model.UserQueryVo;
 
 import java.util.List;
 
@@ -23,4 +25,13 @@ public interface IUserMapper {
 
     public void alter(int id);
 
+    public List<UserCustom> findUserByUserQuery(UserQueryVo userQueryVo);
+
+    public int findUserCount(UserQueryVo userQueryVo);
+
+    public User findUserByIdResultMap(int id);
+
+    public List<UserCustom> findUserList(UserQueryVo userQueryVo);
+
+    public List<UserCustom> queryUserList(UserQueryVo userQueryVo);
 }
