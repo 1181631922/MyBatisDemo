@@ -15,6 +15,16 @@
             <if test="userCustom.username!=null and userCustom.username!=''">
                 AND user.username=#{userCustom.username}
             </if>
+            -- collection:指定输入对象中集合属性
+            -- item:每个遍历生成对象对应的字段名
+            -- open:开始遍历拼接的串
+            -- close:结束遍历拼接的串
+            -- separator:遍历的两个对象中需要拼接的串
+            <if test="ids!=null">
+                <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                    id=#{id}
+                </foreach>
+            </if>
         </if>
     </sql>
 

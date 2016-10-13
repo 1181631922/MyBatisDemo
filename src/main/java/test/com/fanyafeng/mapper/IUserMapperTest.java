@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -51,6 +52,11 @@ public class IUserMapperTest {
         userCustom.setSex("男");
         userCustom.setUsername("李宁");
         userQueryVo.setUserCustom(userCustom);
+        List<Integer> ids=new ArrayList<Integer>();
+        ids.add(9);
+        ids.add(10);
+        ids.add(23);
+        userQueryVo.setIds(ids);
         List<UserCustom> userCustomList = iUserMapper.queryUserList(userQueryVo);
         for (int i = 0; i < userCustomList.size(); i++) {
             System.out.println(userCustomList.get(i).toString());
