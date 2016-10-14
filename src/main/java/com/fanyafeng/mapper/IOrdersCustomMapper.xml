@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.fanyafeng.mapper.IOrdersCustomMapper">
+    <!--查询订单关联用户信息-->
+    <select id="findUserByOrderId" resultType="com.fanyafeng.model.OrdersCustom">
+      SELECT
+          orders.*, user.username, user.sex, user.address
+      FROM
+          orders,
+          user
+      WHERE
+          orders.user_id = user.id;
+    </select>
+
+    <resultMap id="findUserResultMap" type="com.fanyafeng.model.Orders">
+        <!--如果有多个列组成唯一标识,则配置多个id-->
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createTime"/>
+        <result column="note" property="note"/>
+
+        <!--配置映射的关联的用户信息-->
+        <!--association用于映射关联查询单个对象信息
+            property要将关联查询的用户信息映射到orders的那个属性-->
+        <association property="user" javaType="com.fanyafeng.model.User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+            <result column="address" property="address"/>
+        </association>
+    </resultMap>
+    <!--使用resultmap查询订单关联用户信息-->
+    <select id="findUserByOrderIdResultMap" resultMap="findUserResultMap">
+        SELECT
+        orders.*, user.username, user.sex, user.address
+        FROM
+        orders,
+        user
+        WHERE
+        orders.user_id = user.id;
+    </select>
+
+    <resultMap id="findOrderDetailResultMap" type="com.fanyafeng.model.Orders" extends="findUserResultMap">
+        <!--双id进行去重-->
+        <!--订单信息和用户信息可以继承-->
+        <!--如果有多个列组成唯一标识,则配置多个id-->
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="user_id" property="userId"/>-->
+        <!--<result column="number" property="number"/>-->
+        <!--<result column="createtime" property="createTime"/>-->
+        <!--<result column="note" property="note"/>-->
+
+        <!--配置映射的关联的用户信息-->
+        <!--association用于映射关联查询单个对象信息
+            property要将关联查询的用户信息映射到orders的那个属性-->
+        <!--<association property="user" javaType="com.fanyafeng.model.User">-->
+            <!--<id column="user_id" property="id"/>-->
+            <!--<result column="username" property="username"/>-->
+            <!--<result column="sex" property="sex"/>-->
+            <!--<result column="address" property="address"/>-->
+        <!--</association>-->
+
+        <collection property="orderDetailList" ofType="com.fanyafeng.model.OrderDetail">
+            <id column="orderdetail_id" property="id"/>
+            <result column="orders_id" property="ordersId"/>
+            <result column="items_id" property="itemsId"/>
+            <result column="items_num" property="itemsNum"/>
+        </collection>
+    </resultMap>
+
+    <!--查询用户以及订单明细-->
+    <select id="findOrderAndDetailResultMap" resultMap="findOrderDetailResultMap">
+        SELECT
+          orders.*, user.username, user.sex, user.address,orderdetail.items_id,orderdetail.items_num,orderdetail.orders_id
+        FROM
+          orders,
+          user,
+          orderdetail
+        WHERE
+          orders.user_id = user.id
+        AND orderdetail.orders_id = orders.id;
+    </select>
+</mapper>
