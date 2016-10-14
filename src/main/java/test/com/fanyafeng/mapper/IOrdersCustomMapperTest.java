@@ -3,6 +3,7 @@ package test.com.fanyafeng.mapper;
 import com.fanyafeng.mapper.IOrdersCustomMapper;
 import com.fanyafeng.model.Orders;
 import com.fanyafeng.model.OrdersCustom;
+import com.fanyafeng.model.User;
 import com.fanyafeng.model.UserCustom;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -38,10 +39,13 @@ public class IOrdersCustomMapperTest {
 //            System.out.println(userCustomList.get(i).toString());
 //        }
 
-        List<Orders> ordersList = iOrdersCustomMapper.findOrderAndDetailResultMap();
-        for (int i = 0; i < ordersList.size(); i++) {
-            System.out.println(ordersList.get(i).toString());
-        }
+//        List<Orders> ordersList = iOrdersCustomMapper.findOrderAndDetailResultMap();
+//        for (int i = 0; i < ordersList.size(); i++) {
+//            System.out.println(ordersList.get(i).toString());
+//        }
+
+        List<User> userList = iOrdersCustomMapper.findUserAndOrderDetailResultMap();
+
         sqlSession.close();
     }
 

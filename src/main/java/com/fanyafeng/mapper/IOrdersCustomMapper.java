@@ -2,6 +2,7 @@ package com.fanyafeng.mapper;
 
 import com.fanyafeng.model.Orders;
 import com.fanyafeng.model.OrdersCustom;
+import com.fanyafeng.model.User;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IOrdersCustomMapper {
     public List<Orders> findUserByOrderIdResultMap();
 
     public List<Orders> findOrderAndDetailResultMap();
+
+    public List<User> findUserAndOrderDetailResultMap();
 }

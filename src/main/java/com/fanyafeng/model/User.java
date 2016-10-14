@@ -1,6 +1,7 @@
 package com.fanyafeng.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Author： fanyafeng
@@ -13,6 +14,16 @@ public class User {
     private Date birthday;
     private String sex;
     private String address;
+
+    private List<Orders> ordersList;
+
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
 
     public int getId() {
         return id;
